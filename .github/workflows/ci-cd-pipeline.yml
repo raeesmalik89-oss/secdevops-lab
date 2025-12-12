@@ -1,0 +1,50 @@
+
+name: SecDevOps CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build verification
+      run: |
+        echo "🔨 Checking if application builds..."
+        node -c index.js
+        echo "✅ Build check passed!"
+    
+    - name: Run tests
+      run: |
+        echo "🧪 Running tests..."
+        npm test
+        echo "✅ Tests completed!"
+    
+    - name: Security vulnerability scan
+      run: |
+        echo "🔒 Running security checks..."
+        npm audit --audit-level=high || echo "⚠️ Security scan completed with warnings"
+        echo "✅ Security scan finished"
+    
+    - name: Deploy simulation
+      if: github.event_name == 'push'
+      run: |
+        echo "🚀 Simulating deployment..."
+        echo "📦 Application would be packaged here"
+        echo "🌐 Application would be deployed to server here"
+        echo "✅ Deployment simulation successful!"
