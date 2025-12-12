@@ -1,0 +1,14 @@
+
+{
+  "name": "secdevops-lab",
+  "version": "1.0.0",
+  "description": "SecDevOps lab application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Running tests...\" && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
