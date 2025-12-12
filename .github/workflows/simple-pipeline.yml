@@ -1,0 +1,43 @@
+
+name: Simple CI/CD Pipeline
+
+on: [push]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Security Check
+      run: npm audit --audit-level=high || true
+    
+    - name: Build Application
+      run: |
+        echo "Building application..."
+        node -c index.js
+        echo "Build successful"
+    
+    - name: Run Tests
+      run: |
+        echo "Running tests..."
+        npm test
+        echo "Tests completed"
+    
+    - name: Deployment Simulation
+      run: |
+        echo "Deployment simulation started"
+        echo "Step 1: Package application"
+        echo "Step 2: Security validation"
+        echo "Step 3: Deploy to server"
+        echo "Step 4: Health check"
+        echo "Deployment simulation completed"
